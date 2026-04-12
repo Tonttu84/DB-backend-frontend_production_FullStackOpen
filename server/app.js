@@ -9,20 +9,13 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-
 app.use(express.static(path.resolve('dist')))
-
 
 app.use('/api/persons', personsRouter)
 
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve('dist/index.html'))
-})
-
-// app.use((req, res) => {
-//   res.status(404).json({ error: 'unknown endpoint' })
-// })
+ app.use((req, res) => {
+   res.status(404).json({ error: 'unknown endpoint' })
+ })
 
 app.use(errorHandler)
 
