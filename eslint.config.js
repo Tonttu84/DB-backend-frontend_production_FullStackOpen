@@ -2,10 +2,12 @@ import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  {
+    ignores: ['server/dist'], // Ensure the correct path to the dist folder
+  },
 
   // ✅ FRONTEND (React / Vite)
   {
@@ -37,5 +39,11 @@ export default defineConfig([
       globals: globals.node, // 👈 THIS fixes process, process.argv, etc.
       sourceType: 'module',
     },
+  },
+
+  // 🚫 Explicitly ignore all files in the dist folder
+  {
+    files: ['server/dist/**/*'],
+    rules: {}, // Disable all rules for files in dist
   },
 ])
